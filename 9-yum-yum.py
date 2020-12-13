@@ -2,13 +2,12 @@ import random
 
 # EXIT_STORE store is used to determine if a customer doesn't want ice cream
 EXIT_STORE = False
-# NUMBER_OF_ICECREAMS_ORDERED keeps track of how many ice creams have been ordered
 NUMBER_OF_ICECREAMS_ORDERED = 0
-# USER_CHOICES keeps track of all the choices the customer makes
 USER_CHOICES = {}
 
-# greeting() welcomes the user to the shop and gives them an overview of what they can do through print statements
 def greeting():
+    '''Welcomes the user to the shop and provides an overview of what they can order'''
+
     print("Welcome to the 9 Yum Yum Scoop Shop! \n")
 
     print("If you're into yummy ice cream you've come to the right place. \n")
@@ -17,8 +16,9 @@ def greeting():
 
     print("You can choose between a cup or a cone. You can pick your flavor or be surprised (picked by random!). You can choose a size and select any toppings you may like to add. You will be given the specific options soon. \n")
 
-# get_icecream() allows the user to enter the scoop shop or exit 
+
 def get_icecream():
+    '''Takes user input to enter the scoop shop or exit'''
     global EXIT_STORE
     while True: 
         proceed = input("Okay...are you ready? Enter Ready to proceed or Exit to quit. > \n").lower()
@@ -28,15 +28,16 @@ def get_icecream():
             return True
 
         elif proceed == "exit":
-            print("Aw that's too bad! Come back soon. \n")
+            print("Aw that's too bad! \n")
             EXIT_STORE = True
             return False
 
         else:
             print("Sorry, I didn't get that. Let's try this again! \n")
 
-# flavor_choices() gives the customer the ice cream options and sets USER_CHOICES with the selected options by the customer
+
 def flavor_choices():
+    '''Provides ice cream options and sets USER_CHOICES with the selected options by the customer'''
 
     global NUMBER_OF_ICECREAMS_ORDERED
 
@@ -91,12 +92,12 @@ def flavor_choices():
                 print("Sorry, I didn't get that. Did you mean to spell yum? \n")
                 continue
          
-# cone_or_cup() allows the user to determine what type of container they want for their ice cream and sets USER_CHOICES with the selected options by the customer
 def cone_or_cup():
+    '''Sets ice cream container and sets USER_CHOICES with the selected options by the customer'''
     current_ice_cream_order = flavor_choices()
 
-    # If current order exists
     if current_ice_cream_order:
+        '''If current order exists, it proceeds'''
         while True: 
             icecream_holder = input("Would you like a cup or a cone? > ").lower()
 
@@ -122,13 +123,11 @@ def cone_or_cup():
                     print("Sorry that's not an option. \n")
                     continue
 
-                    #THIS IF YOU MISPELL SUGAR OR BUTTERMILK IT SHOULD ASK kind_of_cone AGAIN ---- FIX THIS !!!
-
             else:
                 print("Sorry we only have cups or cones. \n")
 
-# icecream_scoops allows the user to select a size and sets USER_CHOICES with the selected options by the customer
 def icecream_scoops():
+    '''Sets ice cream size and sets USER_CHOICES with the selected options by the customer'''
     
     current_ice_cream_order = cone_or_cup() 
 
@@ -157,8 +156,8 @@ def icecream_scoops():
             else: 
                 print("Sorry, it doesn't look like we have that size. Please try again.  \n")           
 
-# toppings() allows the user to add as many toppings as they'd like and sets USER_CHOICES with the selected options by the customer
 def toppings():
+    '''Sets toppings and sets USER_CHOICES with the selected options by the customer'''
     current_ice_cream_order = icecream_scoops()
 
     if current_ice_cream_order:
@@ -192,14 +191,13 @@ def toppings():
                 print(f"Okay, your {USER_CHOICES[current_ice_cream_order]['flavor']} ice cream is coming right up with no toppings. \n")
                 more_icecream()
                 break
-                #IF USER SAYS THEY WANT TO EXIT AFTER THEY SAID YES TO ADDING ANOTHER TOPPING, IT WILL PRINT THIS STATEMENT ABOVE. THEN IT WILL CALL THE MORE ICE CREAM FUNCTION TO ASK IF THEY WANT TO ADD MORE TO THEIR ORDER
 
             else: 
                 print(f"Sorry, I didn't get that. \n")
                 continue
 
-# more_icecream() asks the user if they'd like any additional ice cream. If they say yes, they'll get pushed back to toppings()
 def more_icecream():
+    '''Asks for additional ice cream and sends them back to toppings()'''
 
     while True: 
         additional_icecream_order = input("Would you like to order more ice cream? Enter Yes or No > ").lower()
@@ -211,8 +209,8 @@ def more_icecream():
         elif additional_icecream_order == "no":
             break
 
-# cost() takes 3 parameters and calculates the cost of the ice cream the user previously ordered
 def cost(size, container, toppings):
+    '''Takes 3 parameters and calculates the cost of the ice cream the user previously ordered'''
 
         tax = 0.083
 
@@ -246,57 +244,39 @@ def cost(size, container, toppings):
 
         return round(total_cost,2)
     
-# build_icecream() calls greeting() and toppings()
 def build_icecream():
+    '''Calls greeting() and toppings()'''
 
     greeting()
 
     toppings()
 
-    # If customer orders and ice cream this will print set total cost to 0 and print a statement 
     if EXIT_STORE == False:
+        '''Sets total cost to 0 and prints summary'''
 
         total_cost = 0
 
-        print_statement = "Okay your order of: \n"
+        order_summary = "Your order of "
 
-        # print("The user choices dictionary is equal to:")
-        # print(USER_CHOICES)
-        # print('\n \n')
-        # print("The user choices dictionary in .items() form is equal to:")
-        # print(USER_CHOICES.items())
-        # print('\n \n')
-
-        # items split keys and values of a dictionary into an iterable list
         for key, value in USER_CHOICES.items():
-            # print("The key variable is equal to: ")
-            # print(key)
-            # print('\n \n')
-            # print("The value variable is equal to: ")
-            # print(value)
+            '''Splits keys and values of dictionary into an interable list'''
 
             current_ice_cream_cost = cost(value['size'], value['container'], value['toppings'])
 
             total_cost += current_ice_cream_cost
             
             if len(value['toppings']) > 0:
-                all_toppings = "with the following toppings: " + (', ').join(value['toppings'])
+                all_toppings = "with " + (', ').join(value['toppings'])
             else:
                 all_toppings = ""
             
-            print_statement = print_statement + f"{value['flavor']} in a {value['container']} " + all_toppings + " is coming right up! \n"
+            order_summary = order_summary + f"{value['flavor']} in a {value['container']} " + all_toppings + " is coming right up! \n"
 
 
 
-        return (f"Okay, your order total is {total_cost}. \n" + print_statement)
+        return (f"Alright, your order total is {total_cost}. \n" + order_summary)
     
     else: 
         return "I hope you come back another day! \n"
 
 print(build_icecream())
-
-
-
-
-
-

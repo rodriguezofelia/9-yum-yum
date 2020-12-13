@@ -215,37 +215,37 @@ def more_icecream():
 def cost(size, container, toppings):
     '''Takes 3 parameters and calculates the cost of the ice cream the user previously ordered'''
 
-        tax = 0.083
+    tax = 0.083
 
-        size_pricing = {
-            "single": 3.50, 
-            "double": 4.50, 
-            "triple": 5.50
-        }
+    size_pricing = {
+        "single": 3.50, 
+        "double": 4.50, 
+        "triple": 5.50
+    }
 
-        container_pricing = {
-            "cup": 0, 
-            "sugar cone": 1.00, 
-            "buttermilk cone": 1.50,  
-        }
+    container_pricing = {
+        "cup": 0, 
+        "sugar cone": 1.00, 
+        "buttermilk cone": 1.50,  
+    }
 
-        toppings_pricing = {
-            "sprinkles": 1.00, 
-            "chocolate sauce": 1.25, 
-            "whipped cream": 1.00,
-            "strawberry sauce": 1.25
-        }
+    toppings_pricing = {
+        "sprinkles": 1.00, 
+        "chocolate sauce": 1.25, 
+        "whipped cream": 1.00,
+        "strawberry sauce": 1.25
+    }
 
-        cost_of_topping = 0
+    cost_of_topping = 0
 
-        for topping in toppings:
-            cost_of_topping += toppings_pricing[topping]
+    for topping in toppings:
+        cost_of_topping += toppings_pricing[topping]
 
-        price = size_pricing[size] + container_pricing[container] + cost_of_topping
+    price = size_pricing[size] + container_pricing[container] + cost_of_topping
 
-        total_cost = price + (tax * price)
+    total_cost = price + (tax * price)
 
-        return round(total_cost,2)
+    return round(total_cost,2)
     
 def build_icecream():
     '''Calls greeting() and toppings()'''

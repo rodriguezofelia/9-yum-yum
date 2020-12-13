@@ -19,6 +19,7 @@ def greeting():
 
 def get_icecream():
     '''Takes user input to enter the scoop shop or exit'''
+
     global EXIT_STORE
     while True: 
         proceed = input("Okay...are you ready? Enter Ready to proceed or Exit to quit. > \n").lower()
@@ -94,6 +95,7 @@ def flavor_choices():
          
 def cone_or_cup():
     '''Sets ice cream container and sets USER_CHOICES with the selected options by the customer'''
+
     current_ice_cream_order = flavor_choices()
 
     if current_ice_cream_order:
@@ -158,6 +160,7 @@ def icecream_scoops():
 
 def toppings():
     '''Sets toppings and sets USER_CHOICES with the selected options by the customer'''
+    
     current_ice_cream_order = icecream_scoops()
 
     if current_ice_cream_order:

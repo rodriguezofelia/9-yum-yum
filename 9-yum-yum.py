@@ -1,6 +1,6 @@
 import random
 
-# EXIT_STORE store is used to determine if a customer doesn't want ice cream
+# EXIT_STORE determines if the user doesn't want ice cream
 EXIT_STORE = False
 NUMBER_OF_ICECREAMS_ORDERED = 0
 USER_CHOICES = {}
@@ -38,7 +38,7 @@ def get_icecream():
 
 
 def flavor_choices():
-    '''Provides ice cream options and sets USER_CHOICES with the selected options by the customer'''
+    '''Provides ice cream options and sets USER_CHOICES with the selected options by the user'''
 
     global NUMBER_OF_ICECREAMS_ORDERED
 
@@ -94,7 +94,7 @@ def flavor_choices():
                 continue
          
 def cone_or_cup():
-    '''Sets ice cream container and sets USER_CHOICES with the selected options by the customer'''
+    '''Sets ice cream container and USER_CHOICES with the selected options by the user'''
 
     current_ice_cream_order = flavor_choices()
 
@@ -129,7 +129,7 @@ def cone_or_cup():
                 print("Sorry we only have cups or cones. \n")
 
 def icecream_scoops():
-    '''Sets ice cream size and sets USER_CHOICES with the selected options by the customer'''
+    '''Sets ice cream size and USER_CHOICES with the selected options by the user'''
     
     current_ice_cream_order = cone_or_cup() 
 
@@ -159,7 +159,7 @@ def icecream_scoops():
                 print("Sorry, it doesn't look like we have that size. Please try again.  \n")           
 
 def toppings():
-    '''Sets toppings and sets USER_CHOICES with the selected options by the customer'''
+    '''Sets toppings and USER_CHOICES with the selected options by the user'''
     
     current_ice_cream_order = icecream_scoops()
 
@@ -200,7 +200,7 @@ def toppings():
                 continue
 
 def more_icecream():
-    '''Asks for additional ice cream and sends them back to toppings()'''
+    '''Determines additional ice cream choices, if any'''
 
     while True: 
         additional_icecream_order = input("Would you like to order more ice cream? Enter Yes or No > ").lower()
@@ -259,7 +259,7 @@ def build_icecream():
 
         total_cost = 0
 
-        order_summary = "Your order of "
+        order_summary = "Your order of...\n"
 
         for key, value in USER_CHOICES.items():
             '''Splits keys and values of dictionary into an interable list'''
@@ -273,13 +273,13 @@ def build_icecream():
             else:
                 all_toppings = ""
             
-            order_summary = order_summary + f"{value['flavor']} in a {value['container']} " + all_toppings + " is coming right up! \n"
+            order_summary = order_summary + f"\n - {value['flavor']} in a {value['container']} " + all_toppings + "\n"
 
 
 
-        return (f"Alright, your order total is {total_cost}. \n" + order_summary)
+        return (f"\nAlright, your order total is {total_cost}. \n\n" + order_summary + "\n... is coming right up!")
     
     else: 
-        return "I hope you come back another day! \n"
+        return "I hope you come back another day!"
 
 print(build_icecream())
